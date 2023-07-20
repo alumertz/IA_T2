@@ -44,7 +44,24 @@ class ValueIterationAgent(ValueEstimationAgent):
 
         # Write value iteration code here
         "*** YOUR CODE HERE ***"
+        
+        #Implementar a função vista em aula. Eq de Bellman
+        #V(s) = R(s) + max(Somatorio da chance de ir para o estado fazendo determinada ação * gama * V(s'))
+        
+        for i in range (iterations):
+            #estado,ação e proxEstado, estão dando como indefinido, logo precisão receber algo
+            #usar funções mdp em um for, talvez
 
+            prob = mdp.getTransitionStatesAndProbs(state, action)
+            valorFut = mdp.getReward(state, action, nextState)
+           
+            Valor = Valor + prob * discount * valorFut
+
+            if mdp.isTerminal(state):
+                Valor = Valor + recompensaDoEstadoAtual
+
+            
+      
 
     def getValue(self, state):
         """
@@ -54,7 +71,7 @@ class ValueIterationAgent(ValueEstimationAgent):
 
     def computeQValueFromValues(self, state, action):
         """
-          Compute the Q-value of action in state from the
+          Compute/Return the Q-value of action in state from the
           value function stored in self.values.
         """
         "*** YOUR CODE HERE ***"
