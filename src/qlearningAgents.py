@@ -52,7 +52,7 @@ class QLearningAgent(ReinforcementAgent):
         """
         if self.values[state] == 0:
           self.values[state] = util.Counter()
-        return self.values[state][action]
+        return self.values[(state,action)]
         
 
 
@@ -77,7 +77,7 @@ class QLearningAgent(ReinforcementAgent):
           you should return None.
         """
         "*** YOUR CODE HERE ***"
-        actions = self.getLegalActions()
+        actions = self.getLegalActions(state)
 
         if len(actions)==0:
           return None
@@ -104,13 +104,18 @@ class QLearningAgent(ReinforcementAgent):
           HINT: You might want to use util.flipCoin(prob)
           HINT: To pick randomly from a list, use random.choice(list)
         """
-        # Pick Action
+       # Pick Action
         legalActions = self.getLegalActions(state)
         action = None
         "*** YOUR CODE HERE ***"
-        util.raiseNotDefined()
+        if len(legalActions) == 0:
+          return action
+        elif util.flipCoin(self.epsilon):
+          return random.choice(legalActions)
+        else:
+          return self.computeActionFromQValues(state)
 
-        return action
+       
 
     def update(self, state, action, nextState, reward):
         """
@@ -129,7 +134,7 @@ class QLearningAgent(ReinforcementAgent):
 
         updatedValue = (1-self.alpha)*qValue+self.alpha*(reward+self.epsilon*maxNewQValue)
 
-        return updatedValue
+        self.values[(state, action)]= updatedValue
 
     def getPolicy(self, state):
         return self.computeActionFromQValues(state)
