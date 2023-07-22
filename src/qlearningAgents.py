@@ -41,8 +41,8 @@ class QLearningAgent(ReinforcementAgent):
     def __init__(self, **args):
         "You can initialize Q-values here..."
         ReinforcementAgent.__init__(self, **args)
-
-        "*** YOUR CODE HERE ***"
+        self.values = util.Counter()
+        
 
     def getQValue(self, state, action):
         """
@@ -50,7 +50,9 @@ class QLearningAgent(ReinforcementAgent):
           Should return 0.0 if we have never seen a state
           or the Q node value otherwise
         """
-        "*** YOUR CODE HERE ***"
+        if self.values[state] == 0:
+          self.values[state] = util.Counter()
+        return self.values[state][action]
         
 
 
