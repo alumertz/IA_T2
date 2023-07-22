@@ -57,8 +57,8 @@ class ValueIterationAgent(ValueEstimationAgent):
             self.values = newValues
                 
 
-                
-
+            
+      
 
     def getValue(self, state):
         """
@@ -68,7 +68,7 @@ class ValueIterationAgent(ValueEstimationAgent):
 
     def computeQValueFromValues(self, state, action):
         """
-          Compute the Q-value of action in state from the
+          Compute/Return the Q-value of action in state from the
           value function stored in self.values.
         """
         qValue = 0
